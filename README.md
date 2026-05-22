@@ -269,6 +269,8 @@ Authorization: <JWT_TOKEN>
 ## Deployment Notes
 
 - Use NeonDB, Supabase, or another PostgreSQL provider.
-- Add `CONNECTIONSTRING`, `JWT_SECRET`, and `JWT_EXPIRES_IN` to deployment environment variables.
+- Add `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, and `NODE_ENV=production` to deployment environment variables.
 - Deploy the backend to Vercel, Render, or Railway.
 - Make sure the live API URL and GitHub repository are public before submitting.
+- Never commit the local `.env` file. Use `.env.example` only as a safe template.
+- If a database URL or JWT secret is accidentally shared, rotate the secret before final submission.
