@@ -125,6 +125,26 @@ npm test
 | POST | `/api/auth/signup` | Public | Register a user |
 | POST | `/api/auth/login` | Public | Login and receive JWT |
 
+Signup request body:
+
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@devpulse.com",
+  "password": "securePassword123",
+  "role": "contributor"
+}
+```
+
+Login request body:
+
+```json
+{
+  "email": "john.doe@devpulse.com",
+  "password": "securePassword123"
+}
+```
+
 ### Issues
 
 | Method | Endpoint | Access | Description |
@@ -134,6 +154,34 @@ npm test
 | GET | `/api/issues/:id` | Public | Get single issue |
 | PATCH | `/api/issues/:id` | Authenticated | Update issue fields |
 | DELETE | `/api/issues/:id` | Maintainer only | Delete an issue |
+
+Create issue request body:
+
+```json
+{
+  "title": "Database connection timeout under load",
+  "description": "Pool exhausts after 50 plus concurrent queries, causing 500 errors",
+  "type": "bug"
+}
+```
+
+Update issue request body:
+
+```json
+{
+  "title": "Updated database pool exhaustion fix needed",
+  "description": "Updated description with clear reproduction steps and expected behavior.",
+  "type": "bug"
+}
+```
+
+Maintainers can also update workflow status:
+
+```json
+{
+  "status": "in_progress"
+}
+```
 
 ### System
 
