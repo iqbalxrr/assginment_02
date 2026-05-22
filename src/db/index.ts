@@ -124,8 +124,8 @@ export const initDB = async () => {
         ),
         (
           46,
-          'Bug 2',
-          'Repro steps...',
+          'Login page validation bug',
+          'Login form accepts malformed email values during manual testing.',
           'bug',
           'in_progress',
           2,
