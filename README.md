@@ -38,6 +38,48 @@ Replace these links with your real public submission links before submitting.
 - jsonwebtoken
 - http-status-codes
 
+## What Was Used For Each Part
+
+| Requirement / Work | What I Used | Main Files |
+| --- | --- | --- |
+| Server setup | Node.js, Express.js, TypeScript | `src/server.ts`, `src/app.ts` |
+| Modular routing | Express Router with separate modules | `src/modules/auth`, `src/modules/issues`, `src/modules/metrics` |
+| Database connection | PostgreSQL with native `pg` Pool | `src/db/index.ts`, `src/config/db.ts` |
+| Database schema | Raw SQL `CREATE TABLE`, checks, timestamps, triggers | `src/db/index.ts` |
+| SQL queries | Direct `pool.query()` calls only | `src/modules/auth/auth.service.ts`, `src/modules/issues/issues.service.ts`, `src/modules/metrics/metrics.controller.ts` |
+| No JOIN rule | Reporter data is fetched separately and merged in application logic | `src/modules/issues/issues.service.ts` |
+| Password hashing | `bcrypt` with 10 salt rounds | `src/modules/auth/auth.service.ts` |
+| Login token | `jsonwebtoken` signed JWT with user `id`, `name`, and `role` | `src/modules/auth/auth.service.ts` |
+| Authentication middleware | JWT verification from `Authorization` header | `src/middleware/auth.ts` |
+| Role authorization | Maintainer-only middleware and service-level permission checks | `src/middleware/auth.ts`, `src/modules/issues/issues.service.ts` |
+| Request validation | Custom Express validation middleware | `src/middleware/validator.ts` |
+| Standard responses | Reusable success and error response helpers | `src/utils/response.ts` |
+| Error handling | Centralized error middleware and custom HTTP errors | `src/middleware/errorHandler.ts`, `src/utils/errors.ts` |
+| Issue CRUD | Create, read, update, delete issue logic | `src/modules/issues/issues.controller.ts`, `src/modules/issues/issues.service.ts` |
+| Sorting and filtering | Query params for `sort`, `type`, and `status` | `src/modules/issues/issues.controller.ts`, `src/modules/issues/issues.service.ts` |
+| Internal metrics | Maintainer-only system metrics endpoint | `src/modules/metrics` |
+| CORS and security headers | `cors` and `helmet` middleware | `src/app.ts` |
+| Environment variables | `.env` locally and Vercel environment variables in deployment | `.env.example`, `src/db/index.ts` |
+| Vercel deployment | Serverless entry point for Express app | `api/index.ts`, `vercel.json` |
+
+## Project Structure
+
+```txt
+src/
+  app.ts                     Express app and route mounting
+  server.ts                  Local server bootstrap
+  config/                    Shared configuration exports
+  db/                        PostgreSQL pool and database initialization
+  middleware/                Auth, validation, and error middleware
+  modules/
+    auth/                    Signup and login module
+    issues/                  Issue tracking module
+    metrics/                 Maintainer metrics module
+  utils/                     Response and error helpers
+api/
+  index.ts                   Vercel serverless entry point
+```
+
 ## Local Setup
 
 Install dependencies:
